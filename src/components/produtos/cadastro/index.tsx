@@ -42,7 +42,11 @@ export const CadastroProdutos: React.FC = () => {
                     id='inputPreco'
                     placeholder='Digite o Preço do produto'
                 />
+            </div>
 
+            <div className='columns'>
+                
+                { /* Nome */}
                 <Input label='Nome: *'
                     columnClasses='is-full'
                     onChange={setNome}
@@ -51,22 +55,9 @@ export const CadastroProdutos: React.FC = () => {
                     placeholder='Digite o Nome do produto'
                 />
 
-
             </div>
 
-            <div className='columns'>
-                <div className='field column is-full'>
-                    <label className='label' htmlFor='inputNome'>Nome: *</label>
-                    <div className='control'>
-                        <input className='input'
-                            id='inputNome' value={nome}
-                            onChange={event => setNome(event.target.value)} p
-                            placeholder='Digite o Nome do produto'>
-                        </input>
-                    </div>
-                </div>
-            </div>
-
+            { /* Descrição */}
             <div className='columns'>
                 <div className='field column is-full'>
                     <label className='label' htmlFor='inputDesc'>Descrição: *</label>
@@ -79,6 +70,7 @@ export const CadastroProdutos: React.FC = () => {
                     </div>
                 </div>
             </div>
+
 
             <div className='field is-grouped'>
                 <div className='control is-link'>
