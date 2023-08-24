@@ -17,6 +17,18 @@ public class Produto {
     private BigDecimal preco;
     private String sku;
 
+    public Produto(){
+
+    }
+
+    public Produto(String nome, String descricao, BigDecimal preco, String sku) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.sku = sku;
+    }
+
+
     public Long getId() {
         return id;
     }
