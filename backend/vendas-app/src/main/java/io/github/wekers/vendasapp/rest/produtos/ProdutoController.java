@@ -3,13 +3,11 @@ package io.github.wekers.vendasapp.rest.produtos;
 import io.github.wekers.vendasapp.model.Produto;
 import io.github.wekers.vendasapp.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/produtos")
+@CrossOrigin("*")
 public class ProdutoController {
 
     @Autowired
