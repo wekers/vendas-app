@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -39,6 +40,7 @@ public class ProdutoController {
 
         Produto entidade = produto.toModel();
         entidade.setId(id);
+        entidade.setDataCadastro(LocalDate.now());
         repository.save(entidade);
 
         return ResponseEntity.ok().build();

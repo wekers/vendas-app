@@ -16,27 +16,32 @@ export const CadastroProdutos: React.FC = () => {
 
     const submit = () => {
         const produto: Produto = {
+            id,
             sku,
             preco: parseFloat(preco),
             nome,
             descricao
         }
-        //console.log(produto)
-        service.salvar(produto).then(produtoResposta => {
-            setId(produtoResposta.id)
-            setCadastro(produtoResposta.cadastro)
 
+        if (id) {
+            service.atualizar(produto).then(response => console.log("atualizado"))
+
+        } else {
+            //console.log(produto)
+            service.salvar(produto).then(produtoResposta => {
+                setId(produtoResposta.id)
+                setCadastro(produtoResposta.cadastro)
+
+            })
         }
-            //console.log(produtoResposta)
 
-        )
     }
 
     return (
 
         <Layout titulo='Cadastro de Produtos'>
 
-            { id &&
+            {id &&
 
                 <div className='columns'>
 
@@ -112,7 +117,11 @@ export const CadastroProdutos: React.FC = () => {
 
             <div className='field is-grouped'>
                 <div className='control is-link'>
-                    <button onClick={submit} className='button'>Salvar</button>
+                    <button onClick={submit} className='button'>
+                        {
+                            id ? "Atualizar" : "Salvar"
+                        }
+                    </button>
                 </div>
 
                 <div className='control'>
