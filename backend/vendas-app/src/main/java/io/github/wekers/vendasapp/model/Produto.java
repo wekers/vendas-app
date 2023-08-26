@@ -3,6 +3,7 @@ package io.github.wekers.vendasapp.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "produto")
@@ -16,6 +17,7 @@ public class Produto {
     private String descricao;
     private BigDecimal preco;
     private String sku;
+    private LocalDate dataCadastro;
 
     public Produto(){
 
@@ -28,6 +30,27 @@ public class Produto {
         this.sku = sku;
     }
 
+    public Produto(Long id, String nome, String descricao, BigDecimal preco, String sku) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.sku = sku;
+    }
+
+    // executa antes de inserir os dados no banco
+    @PrePersist
+    public void prePersist(){
+        setDataCadastro(LocalDate.now());
+    }
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
     public Long getId() {
         return id;
