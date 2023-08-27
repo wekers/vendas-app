@@ -20,7 +20,8 @@ export const CadastroProdutos: React.FC = () => {
             sku,
             preco: parseFloat(preco),
             nome,
-            descricao
+            descricao, 
+            cadastro
         }
 
         if (id) {
