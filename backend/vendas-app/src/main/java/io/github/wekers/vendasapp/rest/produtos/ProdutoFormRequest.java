@@ -28,7 +28,7 @@ public class ProdutoFormRequest {
     }
 
     public Produto toModel(){
-        return new Produto(nome, descricao, preco, sku);
+        return new Produto(id, nome, descricao, preco, sku, cadastro);
     }
 
     public static ProdutoFormRequest fromModel(Produto produto){

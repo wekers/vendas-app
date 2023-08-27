@@ -23,19 +23,20 @@ public class Produto {
 
     }
 
-    public Produto(String nome, String descricao, BigDecimal preco, String sku) {
+   /* public Produto(String nome, String descricao, BigDecimal preco, String sku) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.sku = sku;
-    }
+    }*/
 
-    public Produto(Long id, String nome, String descricao, BigDecimal preco, String sku) {
+    public Produto(Long id, String nome, String descricao, BigDecimal preco, String sku, LocalDate dataCadastro) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.sku = sku;
+        this.dataCadastro = dataCadastro;
     }
 
     // executa antes de inserir os dados no banco

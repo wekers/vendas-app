@@ -3,10 +3,8 @@ package io.github.wekers.vendasapp.rest.produtos;
 import io.github.wekers.vendasapp.model.Produto;
 import io.github.wekers.vendasapp.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -40,7 +38,8 @@ public class ProdutoController {
 
         Produto entidade = produto.toModel();
         entidade.setId(id);
-        entidade.setDataCadastro(LocalDate.now());
+        //entidade.setDataCadastro(LocalDate.now());
+        entidade.setDataCadastro(entidade.getDataCadastro());
         repository.save(entidade);
 
         return ResponseEntity.ok().build();
