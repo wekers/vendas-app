@@ -4,6 +4,8 @@ import { Layout, Input } from 'components'
 import { useProdutoService } from 'app/services'
 import { Produto } from 'app/models/produtos'
 
+import { coverterEmBigDecimal } from 'app/util/money'
+
 export const CadastroProdutos: React.FC = () => {
 
     const service = useProdutoService()
@@ -18,7 +20,7 @@ export const CadastroProdutos: React.FC = () => {
         const produto: Produto = {
             id,
             sku,
-            preco: parseFloat(preco),
+            preco: coverterEmBigDecimal(preco),
             nome,
             descricao, 
             cadastro
@@ -85,6 +87,8 @@ export const CadastroProdutos: React.FC = () => {
                     value={preco}
                     id='inputPreco'
                     placeholder='Digite o Preço do produto'
+                    currency={true}
+                    maxLength={16}
                 />
             </div>
 
@@ -108,7 +112,7 @@ export const CadastroProdutos: React.FC = () => {
                     <div className='control'>
                         <textarea className='textarea'
                             id='inputDesc' value={descricao}
-                            onChange={event => setDescricao(event.target.value)} p
+                            onChange={event => setDescricao(event.target.value)}
                             placeholder='Digite a Descrição detalhada do produto'>
                         </textarea>
                     </div>
