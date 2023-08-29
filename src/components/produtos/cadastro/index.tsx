@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { Layout, Input } from 'components'
+import { Layout, Input, Message } from 'components'
 import { useProdutoService } from 'app/services'
 import { Produto } from 'app/models/produtos'
 
@@ -43,6 +43,7 @@ export const CadastroProdutos: React.FC = () => {
     return (
 
         <Layout titulo='Cadastro de Produtos'>
+            <Message texto='Produto atualizado com sucesso!' tipo="success" />
 
             {id &&
 
