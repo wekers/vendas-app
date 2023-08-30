@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Layout, Input, Message } from 'components'
 import { useProdutoService } from 'app/services'
 import { Produto } from 'app/models/produtos'
+import { Alert } from '@/components/common/message'
 
 import { coverterEmBigDecimal } from 'app/util/money'
 
@@ -15,6 +16,7 @@ export const CadastroProdutos: React.FC = () => {
     const [descricao, setDescricao] = useState<string>('')
     const [id, setId] = useState<string>()
     const [cadastro, setCadastro] = useState<string>()
+    const [messages, setMessages] = useState<Array<Alert>>([])
 
     const submit = () => {
         const produto: Produto = {
@@ -22,18 +24,28 @@ export const CadastroProdutos: React.FC = () => {
             sku,
             preco: coverterEmBigDecimal(preco),
             nome,
-            descricao, 
+            descricao,
             cadastro
         }
 
         if (id) {
-            service.atualizar(produto).then(response => console.log("atualizado"))
+            service.atualizar(produto)
+                .then(response => {
+                    setMessages([{
+                        tipo: "success", texto: "Produto atualizado com sucesso!"
+
+                    }])
+                })
 
         } else {
             //console.log(produto)
             service.salvar(produto).then(produtoResposta => {
                 setId(produtoResposta.id)
                 setCadastro(produtoResposta.cadastro)
+                setMessages([{
+                    tipo: "success", texto: "Produto Salvo com sucesso!"
+
+                }])
 
             })
         }
@@ -42,8 +54,7 @@ export const CadastroProdutos: React.FC = () => {
 
     return (
 
-        <Layout titulo='Cadastro de Produtos'>
-            <Message texto='Produto atualizado com sucesso!' tipo="success" />
+        <Layout titulo='Cadastro de Produtos' mensagens={messages}>
 
             {id &&
 
