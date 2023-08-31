@@ -4,8 +4,17 @@ import { Layout, Input, Message } from 'components'
 import { useProdutoService } from 'app/services'
 import { Produto } from 'app/models/produtos'
 import { Alert } from '@/components/common/message'
-
 import { coverterEmBigDecimal } from 'app/util/money'
+import * as yup from 'yup'
+
+const msgCampoObrigatorio = "Campo Obrigatório"
+
+const validationSchema = yup.object().shape({
+    sku: yup.string().trim().required(msgCampoObrigatorio),
+    nome: yup.string().trim().required(msgCampoObrigatorio),
+    descricao: yup.string().trim().required(msgCampoObrigatorio),
+    preco: yup.number().required(msgCampoObrigatorio).moreThan(0, "Valor deve ser maior que 0,00 (zero)")
+})
 
 export const CadastroProdutos: React.FC = () => {
 
@@ -28,29 +37,40 @@ export const CadastroProdutos: React.FC = () => {
             cadastro
         }
 
-        if (id) {
-            service.atualizar(produto)
-                .then(response => {
+        validationSchema.validate(produto).then(obj => {
+
+            if (id) {
+                service.atualizar(produto)
+                    .then(response => {
+                        setMessages([{
+                            tipo: "success", texto: "Produto atualizado com sucesso!"
+    
+                        }])
+                    })
+    
+            } else {
+                //console.log(produto)
+                service.salvar(produto).then(produtoResposta => {
+                    setId(produtoResposta.id)
+                    setCadastro(produtoResposta.cadastro)
                     setMessages([{
-                        tipo: "success", texto: "Produto atualizado com sucesso!"
-
+                        tipo: "success", texto: "Produto Salvo com sucesso!"
+    
                     }])
+    
                 })
-
-        } else {
-            //console.log(produto)
-            service.salvar(produto).then(produtoResposta => {
-                setId(produtoResposta.id)
-                setCadastro(produtoResposta.cadastro)
-                setMessages([{
-                    tipo: "success", texto: "Produto Salvo com sucesso!"
-
-                }])
-
-            })
-        }
-
+            }
+            
+        }).catch(err => {
+            const field = err.path;
+            const message = err.message;
+            setMessages([
+                {tipo: "danger", field, texto: message}
+            ])
+            console.log(JSON.parse(JSON.stringify(err)))
+        })
     }
+
 
     return (
 
